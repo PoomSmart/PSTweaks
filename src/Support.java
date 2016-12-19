@@ -15,7 +15,7 @@ public class Support {
 	public Support(SupportType type) {
 		this(type, null);
 	}
-	
+
 	public static boolean isPartial(SupportType type) {
 		return type == SupportType.CodePartial || type == SupportType.OSPartial;
 	}

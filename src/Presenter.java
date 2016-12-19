@@ -47,7 +47,6 @@ public class Presenter {
 	public void addTweak(String tweakDesc, String supportDesc) {
 		Tweak t = new Tweak(tweakDesc);
 		t.setSupport(supportDesc);
-		System.out.println(t);
 		addTweak(t);
 	}
 
@@ -72,8 +71,10 @@ public class Presenter {
 			style.setFillForegroundColor(green);
 			break;
 		case CodePartial:
-		case OSPartial:
 			style.setFillForegroundColor(IndexedColors.YELLOW.index);
+			break;
+		case OSPartial:
+			style.setFillForegroundColor(IndexedColors.GREEN.index);
 			break;
 		case Maybe:
 			style.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.index);
@@ -210,116 +211,6 @@ public class Presenter {
 		wb.write(fileOut);
 		fileOut.close();
 		wb.close();
-	}
-
-	public static void main(String[] args) throws IOException {
-		Presenter p = new Presenter();
-		p.addTweak("60fps,n64,my,[Intend to unlock 60 fps capability in iPhone 4s and some old iPads only]", "4:na,5:?,6-9:1,10:m");
-		p.addTweak("AFVideo", "4:na,5-10:1");
-		p.addTweak("Animated Weather Enabler,n64", "4-6:na,7:1,dis");
-		p.addTweak("AppColorClose", "4-6:0,7-10:1");
-		p.addTweak("Auto HDR Enabler,n64,[Too internal, couldn't make it]", "4-6:na,7:0,8-9:cp,dis");
-		p.addTweak("Better Pano Button,n64", "4-5:na,6:0,dis");
-		p.addTweak("BlurryBadges", "4-6:0,7-10:1");
-		p.addTweak("BlurryBar", "4-6:0,7-9:1,10:m");
-		p.addTweak("BlurryContrast", "4-6:na,7-10:1");
-		p.addTweak("Burst mode", "4:?,5-9:1,10:0");
-		p.addTweak("CamBlur7", "4-6:na,5-9:1,10:0");
-		p.addTweak("CamElapsed+", "4-6:0,7-9:1,10:0");
-		p.addTweak("Camera Button UI Mod,n64", "4-5:na,6:1,dis");
-		p.addTweak("CameraModes", "4-6:na,7-9:1,10:0");
-		p.addTweak("CamModeList,my", "4-6:na,7-9:1,10:0");
-		p.addTweak("CamPad,my", "4-6:0,7-8:1,9-10:0");
-		p.addTweak("CamRotate", "4:?,5-9:1,10:m");
-		p.addTweak("CamSwitchDown,my", "4-6:na,7-8:0,9:1,stop");
-		p.addTweak("CamToggleBlur", "4-6:na,7-8:1,9:?,10:0");
-		p.addTweak("CamTouch", "4-8:na,9:1,10:0");
-		p.addTweak("CamVolNormal,n64", "4:?,5-6:1,dis");
-		p.addTweak("CamVolZoom", "4:?,5-8:1,9-10:0");
-		p.addTweak("CamZoomNoReset", "4-7:1,dis");
-		p.addTweak("CCFlashLightLevel", "4-6:na,7-8:1,9:?,dis");
-		p.addTweak("Contrast70", "4-6:na,7:op:7.0,dis");
-		p.addTweak("DismissProgress", "4-10:1");
-		p.addTweak("Effects+", "4-6:na,7-8:1,9-10:0");
-		p.addTweak("Emoji10 (iOS 6.0-8.2),my", "4:na,5:0,6-8:1,stop");
-		p.addTweak("Emoji10 (iOS 8.3/8.4),my", "4-7:na,8:op;8.3+,stop");
-		p.addTweak("Emoji10 (iOS 9.0+),my", "4-8:na,9:1,stop");
-		p.addTweak("Emoji83,my", "4:na,5:0,6:cp,7-8:1,dis");
-		p.addTweak("Emoji83+", "4-7:na,8:op;8.3+,9:1,dis");
-		p.addTweak("EmojiAttributes,my", "4:na,5:?,6-9:1,10:?");
-		p.addTweak("EmojiLayout,my", "4:na,5:0,6-7:1,8:op;<8.3,stop");
-		p.addTweak("EmojiLocalization,my", "4:na,5:0,6-9:1,stop");
-		p.addTweak("EmojiResources,my", "4:na,5:0,6-8:1,9:op:<9.2,stop");
-		p.addTweak("exKeyboard,[Incomplete code injection in IOS 9.1+ Jailbreak]", "4-7:na,8:1,9:cp,10:m");
-		p.addTweak("FaceDetectionDuringVideo", "4:na,5:?,6-9:1,10:m");
-		p.addTweak("FastLoading", "4-10:1");
-		p.addTweak("FB Unlimited Chat Heads[Deprecated feature]", "4-9:1,dis");
-		p.addTweak("Flashorama", "4:na,5:0,6-9:1,10:0");
-		p.addTweak("ForceReach", "4-7:na,8:1,dis");
-		p.addTweak("Front HDR", "4:na,5:0,6-9:1,10:0");
-		p.addTweak("FrontFlash[Require iOS 5+ since 1.7-1]", "4-9:1,10:0");
-		p.addTweak("FullCameraLog", "4:?,5-8:1,dis");
-		p.addTweak("FullNoPop", "4-8:na,9-10:1");
-		p.addTweak("Handoff4S", "4-7:na,8-9:1,dis");
-		p.addTweak("HDR Badge 7.0", "4-6:na,7:op;7.0,dis");
-		p.addTweak("HighGraphics,my", "4-6:na,7-10:1");
-		p.addTweak("IB Graphics Selector", "4:na,5-8:1,9-10:?");
-		p.addTweak("InternalPhotos", "4-6:na,7-10:1");
-		p.addTweak("KBSwipe9", "4-8:na,9-10:1");
-		p.addTweak("LandscapeProximity", "4:0,5-10:1");
-		p.addTweak("LetMeSwitch", "4-7:na,8-9:1,10:m");
-		p.addTweak("LetterPress9", "4-8:na,9:1,stop");
-		p.addTweak("Live Effects Enabler", "4-6:na,7-9:1,10:0");
-		p.addTweak("LLBiPT5", "4-5:na,6-8:1,9:m,stop");
-		p.addTweak("LLBPano", "4-5:na,6-8:1,9-10:0");
-		p.addTweak("LocationRemindersEnabler7", "4-6:na,7:1,dis");
-		p.addTweak("LockEmoji", "4-6:na,7-9:1,10:m");
-		p.addTweak("LockPredict", "4-7:na,8-9:1,10:0");
-		p.addTweak("MoreDictation[Replaced by MoreSiri]", "4:na,5-7:1,dis");
-		p.addTweak("MorePredict", "4-7:na,8-9:1,10:m");
-		p.addTweak("MoreSiri", "4:na,5-9:1,stop");
-		p.addTweak("MoreTimer", "4-7:na,8-9:1,10:0");
-		p.addTweak("MyAssistive", "4:na,5-7:1,dis");
-		p.addTweak("MyBias[iOS 9+ support is unlikely]", "4-7:na,8:1,9:0,dis");
-		p.addTweak("MyLapse,my", "4-7:na,8:1,9-10:0");
-		p.addTweak("NoGrayContrast", "4-6:na,7:op;7.1,8-9:1,10:m");
-		p.addTweak("NoKeyPop", "4:0,5-8:1,stop");
-		p.addTweak("NoPhotoGestures", "4-6:na,7-9:1,10:m");
-		p.addTweak("NoSquare[Replaced by CameraModes]", "4-6:na,7-8:1,dis");
-		p.addTweak("NoUpperCaseTable", "4-6:na,7-10:1");
-		p.addTweak("NoWallpaperZoomAnimation", "4-6:na,7-10:1");
-		p.addTweak("Nyan Cat for Velox,n64,[No Velox update iOS 9+]", "4-5:na,6-8:1,dis");
-		p.addTweak("PanoMod", "4:na,5:0,6-9:1,10:0");
-		p.addTweak("PhotoRes", "4-5:?,6-9:1,10:m");
-		p.addTweak("PhotoScrubber,n64", "4-8:na,9:1,10:m");
-		p.addTweak("PhotoTorch", "4-5:0,6-9:1,10:0");
-		p.addTweak("ProximityCam", "4-6:0,7-8:1,9-10:0");
-		p.addTweak("Randomy", "4-6:0,7:1,8-9:0,dis");
-		p.addTweak("ReachFix,my", "4-7:na,8:1,9-10:?");
-		p.addTweak("Record 'n' Torch", "4:0,5-9:1,10:0");
-		p.addTweak("RecordPause", "4-7:0,8-9:1,10:0");
-		p.addTweak("RoundedTable,my", "4-6:na,7-9:1,10:m");
-		p.addTweak("SiriNoConfirm", "4:na,5-8:1,9-10:?");
-		p.addTweak("Sketch9,n64", "4-8:1,dis");
-		p.addTweak("Slo-mo Mod", "4-6:na,7-9:1,10:0");
-		p.addTweak("SmoothCursor", "4-10:1");
-		p.addTweak("SmoothPop", "4-6:0,7-10:1");
-		p.addTweak("StaticZoom", "4-9:1,10:m");
-		p.addTweak("Still Capture Enabler 2", "4-9:1,10:cp");
-		p.addTweak("SwipeForMore", "4-7:0,8-9:1,10:m");
-		p.addTweak("SwipeKey,my", "4-5:?,6-8:1,9-10:0");
-		p.addTweak("SwitchAutofocus", "4:?,5-9:1,10:m");
-		p.addTweak("TapForMore,my,[armv7 only]", "4-7:1,stop");
-		p.addTweak("TransparentCameraBar", "4-9:1,10:m");
-		p.addTweak("TypeAndTalk", "4-6:na,7-10:1");
-		p.addTweak("UnlimShortcut", "4-8:na,9:1,10:m");
-		p.addTweak("UnlockVol", "4-9:1,10:m");
-		p.addTweak("Unrestricted Folders Naming", "4-10:1");
-		p.addTweak("Video Zoom Mod", "4-6:na,7-10:1");
-		p.addTweak("WeatherFix8", "4-7:na,8:1,dis");
-		p.addTweak("Yellow Flash 7.0", "4-6:na,7:op;7.0,dis");
-
-		p.output();
 	}
 
 }

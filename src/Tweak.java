@@ -57,8 +57,8 @@ public class Tweak {
 	}
 
 	public String toString() {
-		String desc = String.format("[%s] (support64: %s, available: %s, official: %s, comments: %s)", name, supports64Bit,
-				available, !fromMyRepo, comments);
+		String desc = String.format("[%s] (support64: %s, available: %s, official: %s, comments: %s)", name,
+				supports64Bit, available, !fromMyRepo, comments);
 		desc += " { ";
 		for (Entry<Integer, Support> entry : supports.entrySet())
 			desc += entry.getKey() + ":" + entry.getValue().toString() + " ";

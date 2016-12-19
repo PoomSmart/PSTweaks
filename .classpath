@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/ooxml-schemas-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/poi-3.16-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/poi-examples-3.16-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/poi-excelant-3.16-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/poi-ooxml-3.16-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/poi-ooxml-schemas-3.16-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/poi-scratchpad-3.16-beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PoomSmart/workspace/PSTweaks/lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

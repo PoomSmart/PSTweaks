@@ -27,9 +27,18 @@ public class Presenter {
 	private static XSSFCellStyle myRepoTweakNameStyle;
 	private static XSSFColor green = new XSSFColor(new Color(100, 200, 100));
 	private static XSSFColor red = new XSSFColor(new Color(250, 100, 100));
+	private static XSSFColor headerColor = new XSSFColor(new Color(200, 200, 220));
+	private int minOSVer;
+	private int maxOSVer;
 
-	public Presenter() {
+	public Presenter(int minVer, int maxVer) {
 		tweaks = new TreeMap<String, Tweak>();
+		minOSVer = minVer;
+		maxOSVer = maxVer;
+	}
+	
+	public Presenter() {
+		this(Version.iOSVersionMin, Version.iOSVersionMax);
 	}
 
 	public void addTweak(Tweak tweak) {
@@ -46,16 +55,16 @@ public class Presenter {
 
 	public void addTweak(String tweakDesc, String supportDesc) {
 		Tweak t = new Tweak(tweakDesc);
-		t.setSupport(supportDesc);
+		t.setSupport(supportDesc, minOSVer, maxOSVer);
 		addTweak(t);
 	}
 
-	public void setCenter(CellStyle style) {
+	public static void setCenter(CellStyle style) {
 		style.setAlignment(HorizontalAlignment.CENTER);
 		style.setVerticalAlignment(VerticalAlignment.CENTER);
 	}
 	
-	public void setTweakNameStyle(Cell cell, boolean available, boolean fromMyRepo) {
+	public static void setTweakNameStyle(Cell cell, boolean available, boolean fromMyRepo) {
 		if (available && fromMyRepo)
 			cell.setCellStyle(myRepoTweakNameStyle);
 		else if (!available)
@@ -64,7 +73,7 @@ public class Presenter {
 			cell.setCellStyle(normalTweakNameStyle);
 	}
 	
-	public void setSupportStyle(Workbook wb, Cell cell, XSSFFont boldFont, Support.SupportType type) {
+	public static void setSupportStyle(Workbook wb, Cell cell, XSSFFont boldFont, Support.SupportType type) {
 		XSSFCellStyle style = (XSSFCellStyle) wb.createCellStyle();
 		switch (type) {
 		case Full:
@@ -96,9 +105,9 @@ public class Presenter {
 		cell.setCellStyle(style);
 	}
 	
-	public void set64bitSupportStyle(Workbook wb, Cell cell, XSSFFont boldFont, boolean support) {
+	public static void set64bitSupportStyle(Workbook wb, Cell cell, XSSFFont boldFont, boolean support) {
 		XSSFCellStyle style = (XSSFCellStyle) wb.createCellStyle();
-		cell.setCellValue(support + "");
+		cell.setCellValue(support ? "Yes" : "No");
 		style.setFillForegroundColor(support ? green : red);
 		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		style.setFont(boldFont);
@@ -106,7 +115,7 @@ public class Presenter {
 		cell.setCellStyle(style);
 	}
 	
-	public void load(Workbook wb) {
+	public static void load(Workbook wb) {
 		normalTweakNameStyle = (XSSFCellStyle) wb.createCellStyle();
 		outdatedTweakNameStyle = (XSSFCellStyle) wb.createCellStyle();
 		myRepoTweakNameStyle = (XSSFCellStyle) wb.createCellStyle();
@@ -130,13 +139,14 @@ public class Presenter {
 		myRepoTweakNameStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 	}
 
-	public void output() throws IOException {
+	public static void output(String fileName, Presenter p) throws IOException {
+		TreeMap<String, Tweak> tweaks = p.tweaks;
 		Workbook wb = new XSSFWorkbook();
 		load(wb);
-		Sheet sheet = wb.createSheet();
+		Sheet sheet = wb.createSheet(fileName);
 		Row header = sheet.createRow(0);
 		XSSFCellStyle headerStyle = (XSSFCellStyle) wb.createCellStyle();
-		headerStyle.setFillForegroundColor(new XSSFColor(new Color(200, 200, 220)));
+		headerStyle.setFillForegroundColor(headerColor);
 		headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		XSSFFont font = (XSSFFont) wb.createFont();
 		font.setBold(true);
@@ -151,7 +161,7 @@ public class Presenter {
 		Cell iOSVer = header.createCell(1);
 		iOSVer.setCellValue("Supported iOS Versions");
 		iOSVer.setCellStyle(headerStyle);
-		int numOS = Version.iOSVersionMax - Version.iOSVersionMin + 1;
+		int numOS = p.maxOSVer - p.minOSVer + 1;
 		for (int i = 1; i <= numOS; i++)
 			header.createCell(i + 1);
 		Cell s64 = header.createCell(1 + numOS);
@@ -163,7 +173,7 @@ public class Presenter {
 		Row iOSVers = sheet.createRow(1);
 		for (int i = 1; i <= numOS; i++) {
 			Cell ver = iOSVers.createCell(i);
-			ver.setCellValue((Version.iOSVersionMin + i - 1) + ".x");
+			ver.setCellValue((p.minOSVer + i - 1) + ".x");
 			ver.setCellStyle(headerStyle);
 		}
 		sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 0));
@@ -185,7 +195,7 @@ public class Presenter {
 			typeCell.setCellValue(supports[start].toString());
 			setSupportStyle(wb, typeCell, font, supports[start].type);
 			// Merging algorithm, thanks to Erbazz
-			for (i = 1; i < supports.length; i++) {
+			for (i = start + 1; i < supports.length; i++) {
 				if (supports[i].type != supports[i - 1].type) {
 					if (i - start > 1)
 						sheet.addMergedRegion(new CellRangeAddress(tRow, tRow, start + 1, i));
@@ -206,8 +216,9 @@ public class Presenter {
 			commentsCell.setCellValue(tweak.comments);
 			sheet.autoSizeColumn(i);
 			tRow++;
+			supports = null;
 		}
-		FileOutputStream fileOut = new FileOutputStream("tweaks.xlsx");
+		FileOutputStream fileOut = new FileOutputStream(fileName + ".xlsx");
 		wb.write(fileOut);
 		fileOut.close();
 		wb.close();

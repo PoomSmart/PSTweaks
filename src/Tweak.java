@@ -9,10 +9,11 @@ public class Tweak {
 	public boolean supports64Bit = true;
 	public boolean available = true;
 	public boolean fromMyRepo;
+	public boolean isFlipswitch;
 	public String comments;
 	public TreeMap<Integer, Support> supports;
 
-	public static Pattern iosVerPattern = Pattern.compile("([\\-\\d+]+):(.+)");
+	public static Pattern iosVerPattern = Pattern.compile("([l\\-\\d+]+):(.+)");
 
 	public Tweak(String name, boolean supports64Bit, boolean available, boolean fromMyRepo, String comments) {
 		this.name = name;
@@ -48,6 +49,9 @@ public class Tweak {
 			case "my":
 				fromMyRepo = true;
 				break;
+			case "fs":
+				isFlipswitch = true;
+				break;
 			}
 		}
 	}
@@ -66,10 +70,11 @@ public class Tweak {
 		return desc;
 	}
 
-	public void setSupport(String desc) {
+	public void setSupport(String desc, Integer minOSVer, Integer maxOSVer) {
 		assert desc != null && !desc.isEmpty();
 		Matcher m;
 		// example: 4:na,5:unknown,6-7:op:6.1
+		// example: all:1
 		boolean discountinued = false;
 		boolean stopped = false;
 		for (String sub : desc.split(",")) {
@@ -78,11 +83,19 @@ public class Tweak {
 			else if (sub.equals("stop"))
 				stopped = true;
 			else {
-				if ((m = iosVerPattern.matcher(sub)).find()) {
+				if (sub.startsWith("all:")) {
+					sub = sub.substring(4);
+					String subs[] = sub.split(";");
+					Support.SupportType type = Support.getType(subs[0]);
+					setSupport(minOSVer, maxOSVer, type, subs.length == 2 ? subs[1] : null);
+					subs = null;
+				} else if ((m = iosVerPattern.matcher(sub)).find()) {
 					String vers = m.group(1);
 					String[] svers = vers.split("-");
 					int iosVerF = Integer.parseInt(svers[0]);
-					int iosVerT = svers.length == 2 ? Integer.parseInt(svers[1]) : iosVerF;
+					assert iosVerF >= minOSVer;
+					int iosVerT = svers.length == 2 ? (svers[1].equals("l") ? maxOSVer : Integer.parseInt(svers[1])) : iosVerF;
+					assert iosVerT <= maxOSVer;
 					String stype = m.group(2);
 					String[] stypec = stype.split(";");
 					Support.SupportType type = Support.getType(stypec[0]);
@@ -98,18 +111,22 @@ public class Tweak {
 		if (discountinued) {
 			setOutdated();
 			Support na = new Support(Support.SupportType.NA);
-			for (Integer i = Version.iOSVersionMin; i <= Version.iOSVersionMax; i++) {
+			for (Integer i = minOSVer; i <= maxOSVer; i++) {
 				if (supports.get(i) == null)
 					supports.put(i, na);
 			}
 		} else if (stopped) {
 			Support na = new Support(Support.SupportType.NAI);
-			Integer i = Version.iOSVersionMin;
-			while (i < Version.iOSVersionMax && supports.get(i) != null)
+			Integer i = minOSVer;
+			while (i < maxOSVer && supports.get(i) != null)
 				i++;
-			while (i <= Version.iOSVersionMax)
+			while (i <= maxOSVer)
 				supports.put(i++, na);
 		}
+	}
+	
+	public void setSupport(String desc) {
+		setSupport(desc, Version.iOSVersionMin, Version.iOSVersionMax);
 	}
 
 	public void setSupport(int iosVerF, int iosVerT, Support.SupportType type, String comment) {

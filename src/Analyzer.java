@@ -18,7 +18,12 @@ public class Analyzer {
 		for (Tweak tweak : tweaks.values()) {
 			boolean pass = true;
 			for (Integer i = iOSVerF; i <= iOSVerT; i++) {
-				if (!isApplicableType(tweak.supports.get(i).type, guess)) {
+				Support support = tweak.supports.get(i);
+				if (support == null) {
+					System.out.println("Error: Support for iOS version " + i + " not found for tweak " + tweak.name);
+					continue;
+				}
+				if (!isApplicableType(support.type, guess)) {
 					pass = false;
 					break;
 				}

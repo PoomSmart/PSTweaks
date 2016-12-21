@@ -34,7 +34,7 @@ public class Tester {
 		pt.addTweak("CCFlashLightLevel", "4-6:na,7-8:1,9:?,dis");
 		pt.addTweak("CCScaleBT,my", "4-6:na,7-8:1,9:op;<9.3,stop");
 		pt.addTweak("cfprefsd Fix,my", "4-7:na,8:1,9-l:?");
-		pt.addTweak("Contrast70", "4-6:na,7:op:7.0,dis");
+		pt.addTweak("Contrast70", "4-6:na,7:op;7.0,dis");
 		pt.addTweak("DismissProgress", "all:1");
 		pt.addTweak("Effects+", "4-6:na,7-8:1,9-l:0");
 		pt.addTweak("Emoji10 (iOS 6.0-8.2),my", "4:na,5:0,6-8:1,stop");
@@ -73,7 +73,7 @@ public class Tester {
 		pt.addTweak("LocationRemindersEnabler7", "4-6:na,7:1,dis");
 		pt.addTweak("LockEmoji", "4-6:na,7-9:1,10:m");
 		pt.addTweak("LockPredict", "4-7:na,8-9:1,10-l:0");
-		pt.addTweak("Minimal Camera (iOS 9)", "4-8:na,9:1,10:?");
+		pt.addTweak("Minimal Camera (iOS 9),my", "4-8:na,9:1,10:?");
 		pt.addTweak("MoreDictation[Replaced by MoreSiri]", "4:na,5-7:1,dis");
 		pt.addTweak("MorePredict", "4-7:na,8-9:1,10:m");
 		pt.addTweak("MoreSiri", "4:na,5-9:1,stop");
@@ -105,7 +105,7 @@ public class Tester {
 		pt.addTweak("SmoothCursor", "all:1");
 		pt.addTweak("SmoothKB,my", "4-6:na,7-8:1,9-l:0");
 		pt.addTweak("SmoothPop", "4-6:0,7-10:1");
-		pt.addTweak("SMSGroupName,my", "4-6:na,8:?,9:1,10:m");
+		pt.addTweak("SMSGroupName,my", "4-6:na,7-8:?,9:1,10:m");
 		pt.addTweak("StaticZoom,my", "4-9:1,10:m");
 		pt.addTweak("Still Capture Enabler 2", "4-9:1,10:cp");
 		pt.addTweak("SwipeForMore", "4-7:0,8-9:1,10:m");
